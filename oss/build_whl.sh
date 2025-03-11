@@ -31,7 +31,7 @@ function main() {
   export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
   bazel run //:requirements.update
-  bazel build ...
+  bazel build ...  --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
   bazel test --verbose_failures --test_output=errors ...
 
   DEST="/tmp/array_record/all_dist"
@@ -60,7 +60,11 @@ function main() {
 
   pushd ${TMPDIR}
   echo $(date) : "=== Building wheel"
-  ${PYTHON_BIN} setup.py bdist_wheel --python-tag py3${PYTHON_MINOR_VERSION}
+  if [ "$(uname)" = "Darwin" ]; then
+    "$PYTHON_BIN" setup.py bdist_wheel --python-tag py3"${PYTHON_MINOR_VERSION}" --plat-name macosx_11_0_"$(uname -m)"
+  else
+    "$PYTHON_BIN" setup.py bdist_wheel --python-tag py3"${PYTHON_MINOR_VERSION}"
+  fi
 
   if [ -n "${AUDITWHEEL_PLATFORM}" ]; then
     echo $(date) : "=== Auditing wheel"
