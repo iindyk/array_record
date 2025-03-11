@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # TODO(fchern): automate version string alignment with setup.py
-VERSION = "0.6.0"
+VERSION = "0.7.0"
 
 module(
     name = "array_record",
@@ -28,7 +28,7 @@ bazel_dep(name = "protobuf", version = "21.7")
 bazel_dep(name = "googletest", version = "1.15.2")
 bazel_dep(name = "abseil-cpp", version = "20240722.0")
 bazel_dep(name = "abseil-py", version = "2.1.0")
-bazel_dep(name = "eigen", version = "3.4.0")
+bazel_dep(name = "eigen", version = "3.4.0.bcr.2")
 bazel_dep(name = "riegeli", version = "0.0.0-20241218-3385e3c")
 bazel_dep(name = "pybind11_bazel", version = "2.12.0")
 
