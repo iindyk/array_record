@@ -8,13 +8,13 @@ package(default_visibility = ["//visibility:public"])
 licenses(["notice"])
 
 proto_library(
-    name = "layout_proto",
-    srcs = ["layout.proto"],
+    name = "array_record_layout_proto",
+    srcs = ["array_record_layout.proto"],
 )
 
 cc_proto_library(
-    name = "layout_cc_proto",
-    deps = [":layout_proto"],
+    name = "array_record_layout_cc_proto",
+    deps = [":array_record_layout_proto"],
 )
 
 cc_library(
@@ -106,7 +106,7 @@ cc_library(
     hdrs = ["array_record_writer.h"],
     deps = [
         ":common",
-        ":layout_cc_proto",
+        ":array_record_layout_cc_proto",
         ":sequenced_chunk_writer",
         ":thread_pool",
         ":tri_state_ptr",
@@ -159,7 +159,7 @@ cc_library(
     hdrs = ["array_record_reader.h"],
     deps = [
         ":common",
-        ":layout_cc_proto",
+        ":array_record_layout_cc_proto",
         ":masked_reader",
         ":parallel_for",
         ":thread_pool",
@@ -232,7 +232,7 @@ cc_test(
     deps = [
         ":array_record_writer",
         ":common",
-        ":layout_cc_proto",
+        ":array_record_layout_cc_proto",
         ":test_utils",
         ":thread_pool",
         "@abseil-cpp//absl/strings",
@@ -280,7 +280,7 @@ cc_test(
         ":array_record_reader",
         ":array_record_writer",
         ":common",
-        ":layout_cc_proto",
+        ":array_record_layout_cc_proto",
         ":test_utils",
         ":thread_pool",
         "@abseil-cpp//absl/functional:function_ref",
