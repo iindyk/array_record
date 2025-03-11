@@ -26,13 +26,13 @@ function main() {
 
   # Enable host OS specific configs. For instance, "build:linux" will be used
   # automatically when building on Linux.
-  write_to_bazelrc "build --enable_platform_specific_config"
+  # write_to_bazelrc "build --enable_platform_specific_config"
   # Bazel 7.0.0 no longer supports dynamic symbol lookup on macOS. To resolve
   # undefined symbol errors in macOS arm64 builds, explicitly add the necessary
   # linker flags until dependencies are well defined. See
   # https://github.com/bazelbuild/bazel/issues/19730.
-  write_to_bazelrc "build:macos --linkopt=-Wl,-undefined,dynamic_lookup"
-  write_to_bazelrc "build:macos --host_linkopt=-Wl,-undefined,dynamic_lookup"
+  write_to_bazelrc "build --linkopt=-Wl,-undefined,dynamic_lookup"
+  write_to_bazelrc "build --host_linkopt=-Wl,-undefined,dynamic_lookup"
 
   if [ -n "${CROSSTOOL_TOP}" ]; then
     write_to_bazelrc "build --crosstool_top=${CROSSTOOL_TOP}"
