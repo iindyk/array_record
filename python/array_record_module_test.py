@@ -18,6 +18,9 @@ import os
 
 from absl.testing import absltest
 
+# just to check the import
+import tensorflow as tf
+
 from python.array_record_module import ArrayRecordReader
 from python.array_record_module import ArrayRecordWriter
 
