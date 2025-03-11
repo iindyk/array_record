@@ -23,7 +23,7 @@ RUN BAZEL_ARCH_SUFFIX="$(uname -m | sed s/aarch64/arm64/)" \
 
 # Install dependencies needed for array_record.
 RUN --mount=type=cache,target=/root/.cache \
-  ${PYTHON_BIN}/python -m pip install -U \
+  $PYTHON_BIN -m pip install -U \
     absl-py \
     auditwheel \
     etils[epath] \
