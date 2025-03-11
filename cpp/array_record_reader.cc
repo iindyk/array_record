@@ -36,7 +36,7 @@ limitations under the License.
 #include "absl/strings/string_view.h"
 #include "absl/types/span.h"
 #include "cpp/common.h"
-#include "cpp/layout.pb.h"
+#include "cpp/array_record_layout.pb.h"
 #include "cpp/masked_reader.h"
 #include "cpp/parallel_for.h"
 #include "cpp/thread_pool.h"
