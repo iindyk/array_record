@@ -18,3 +18,4 @@
 # bazel run //:requirements.update in the OSS version.
 
 etils[epath]
+tensorflow
