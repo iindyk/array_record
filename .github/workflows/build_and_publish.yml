@@ -32,7 +32,7 @@ jobs:
           export BAZEL_VERSION="7.1.1"
           export OUTPUT_DIR="/tmp/array_record"
           export SOURCE_DIR="/tmp/array_record"
-          . "${SOURCE_DIR}"'/array_record/oss/runner_common.sh'
+          . "${SOURCE_DIR}"'/oss/runner_common.sh'
           build_and_test_array_record
       - name: Upload ArrayRecord artifacts
         uses: actions/upload-artifact@v4
