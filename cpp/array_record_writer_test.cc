@@ -29,7 +29,7 @@ limitations under the License.
 #include "absl/strings/cord_test_helpers.h"
 #include "absl/strings/string_view.h"
 #include "cpp/common.h"
-#include "cpp/layout.pb.h"
+#include "cpp/array_record_layout.pb.h"
 #include "cpp/test_utils.h"
 #include "cpp/thread_pool.h"
 #include "riegeli/base/maker.h"
