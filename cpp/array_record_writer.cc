@@ -38,7 +38,7 @@ limitations under the License.
 #include "absl/synchronization/mutex.h"
 #include "absl/types/span.h"
 #include "cpp/common.h"
-#include "cpp/layout.pb.h"
+#include "cpp/array_record_layout.pb.h"
 #include "cpp/sequenced_chunk_writer.h"
 #include "cpp/thread_pool.h"
 #include "cpp/tri_state_ptr.h"
