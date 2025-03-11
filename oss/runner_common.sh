@@ -113,7 +113,7 @@ function build_and_test_array_record() {
     bazel --version
     setup_env_vars_py "$PYTHON_MAJOR_VERSION" "$PYTHON_MINOR_VERSION"
     install_and_init_pyenv "${PYENV_ROOT}"
-    $PYTHON_BIN -m pip install -U wheel setuptools
+    $PYTHON_BIN -m pip install -U wheel setuptools tensorflow
     sh "${SOURCE_DIR}"'/oss/build_whl.sh'
   else
     # Automatically decide which platform to build for by checking on which
