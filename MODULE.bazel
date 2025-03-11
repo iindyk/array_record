@@ -41,7 +41,7 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 http_archive(
     name = "protobuf",
-    strip_prefix = "protobuf-3.6.1",
+    strip_prefix = "protobuf-3.7.0",
     integrity = "sha256-16Ihs9T7TwW3RzeVzOqeBdqzuHIfYoapX/+//C2Sb4s=",
     urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.6.1.zip",],
 )
