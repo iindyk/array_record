@@ -42,8 +42,8 @@ function main() {
   export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
   bazel run //:requirements.update
-  bazel build ... --action_env PYTHON_BIN_PATH="${PYTHON_BIN}" --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
-  bazel test --verbose_failures --test_output=errors ... --action_env PYTHON_BIN_PATH="${PYTHON_BIN}"
+  bazel build ... --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
+  bazel test --verbose_failures --test_output=errors ...
 
   DEST="/tmp/array_record/all_dist"
   # Create the directory, then do dirname on a non-existent file inside it to
