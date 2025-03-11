@@ -32,6 +32,11 @@ bazel_dep(name = "riegeli", version = "0.0.0-20231123-411cda7.bcr.1")
 bazel_dep(name = "pybind11_bazel", version = "2.11.1")
 bazel_dep(name = "protobuf", version = "3.19.6")
 
+single_version_override(
+    module_name = "protobuf",
+    version = "3.19.6",
+)
+
 #http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 #http_archive(
