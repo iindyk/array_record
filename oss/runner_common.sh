@@ -64,7 +64,7 @@ function install_and_init_pyenv {
   export PYTHON_BIN
 }
 
-function setup_env_vars_py310 {
+function setup_env_vars_py() {
   # This controls the python binary to use.
   PYTHON_MAJOR_VERSION="$1"
   PYTHON_MINOR_VERSION="$2"
