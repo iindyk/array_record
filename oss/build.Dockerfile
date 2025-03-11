@@ -30,6 +30,7 @@ RUN --mount=type=cache,target=/root/.cache \
     patchelf \
     setuptools \
     twine \
+    tensorflow \
     wheel;
 
 WORKDIR "/tmp/array_record"
