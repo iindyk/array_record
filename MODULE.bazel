@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # TODO(fchern): automate version string alignment with setup.py
-VERSION = "0.7.0"
+VERSION = "0.7.1"
 
 module(
     name = "array_record",
@@ -21,6 +21,7 @@ module(
     repo_name = "com_google_array_record",
 )
 
+bazel_dep(name = "bazel_skylib", version = "1.6.1")
 bazel_dep(name = "rules_proto", version = "7.0.2")
 bazel_dep(name = "rules_python", version = "0.40.0")
 bazel_dep(name = "platforms", version = "0.0.10")
