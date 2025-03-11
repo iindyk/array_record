@@ -118,7 +118,7 @@ function build_and_test_array_record() {
   else
     # Automatically decide which platform to build for by checking on which
     # platform this runs.
-    export PYTHON_BIN=/opt/python/cp${PYTHON_MAJOR_VERSION}${PYTHON_MINOR_VERSION}-cp${PYTHON_MAJOR_VERSION}${PYTHON_MINOR_VERSION}/bin
+    export PYTHON_BIN=/opt/python/cp${PYTHON_MAJOR_VERSION}${PYTHON_MINOR_VERSION}-cp${PYTHON_MAJOR_VERSION}${PYTHON_MINOR_VERSION}m/bin
     AUDITWHEEL_PLATFORM='manylinux2014_'"$(uname -m)"
     docker rmi -f array_record:${PYTHON_VERSION}
     docker rm -f array_record
