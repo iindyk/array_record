@@ -5,18 +5,8 @@
 
 set -e -x
 
-if [ -z ${PYTHON_BIN} ]; then
-  if [ -z ${PYTHON_VERSION} ]; then
-    PYTHON_BIN=$(which python3)
-  else
-    PYTHON_BIN=$(which python${PYTHON_VERSION})
-  fi
-fi
+OUTPUT_DIR="${OUTPUT_DIR:-/tmp/array_record}"
 
-PYTHON_MAJOR_VERSION=$(${PYTHON_BIN} -c 'import sys; print(sys.version_info.major)')
-PYTHON_MINOR_VERSION=$(${PYTHON_BIN} -c 'import sys; print(sys.version_info.minor)')
-PYTHON_VERSION="${PYTHON_MAJOR_VERSION}.${PYTHON_MINOR_VERSION}"
-export PYTHON_VERSION="${PYTHON_VERSION}"
 
 function write_to_bazelrc() {
   echo "$1" >> .bazelrc
