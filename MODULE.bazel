@@ -43,7 +43,7 @@ http_archive(
     name = "protobuf",
     strip_prefix = "protobuf-3.7.0",
     integrity = "sha256-16Ihs9T7TwW3RzeVzOqeBdqzuHIfYoapX/+//C2Sb4s=",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.6.1.zip",],
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.7.0.zip",],
 )
 
 SUPPORTED_PYTHON_VERSIONS = [
