@@ -81,15 +81,15 @@ python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 
 use_repo(python, python = "python_versions")
 
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+#pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 
-[
-    pip.parse(
-        hub_name = "pypi",
-        python_version = version,
-        requirements_lock = "requirements_lock.txt",
-    )
-    for version in SUPPORTED_PYTHON_VERSIONS
-]
+#[
+#    pip.parse(
+#        hub_name = "pypi",
+#        python_version = version,
+#        requirements_lock = "requirements_lock.txt",
+#    )
+#    for version in SUPPORTED_PYTHON_VERSIONS
+#]
 
-use_repo(pip, "pypi")
+#use_repo(pip, "pypi")
