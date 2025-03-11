@@ -22,6 +22,7 @@ function main() {
   write_to_bazelrc "build --experimental_repo_remote_exec"
   write_to_bazelrc "build --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
   write_to_bazelrc "test --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
+  write_to_bazelrc "test --action_env PYTHON_VERSION=${PYTHON_VERSION}"
 
   if [ -n "${CROSSTOOL_TOP}" ]; then
     write_to_bazelrc "build --crosstool_top=${CROSSTOOL_TOP}"
@@ -31,8 +32,8 @@ function main() {
   export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
   bazel run //:requirements.update
-  bazel build ...  --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
-  bazel test --verbose_failures --test_output=errors ...
+  bazel build ... --action_env PYTHON_BIN_PATH="${PYTHON_BIN}" --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
+  bazel test --verbose_failures --test_output=errors ... --action_env PYTHON_BIN_PATH="${PYTHON_BIN}"
 
   DEST="/tmp/array_record/all_dist"
   # Create the directory, then do dirname on a non-existent file inside it to
