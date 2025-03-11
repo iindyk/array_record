@@ -41,7 +41,7 @@ function main() {
 
   export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
-  bazel run //:requirements.update
+  #bazel run //:requirements.update
   bazel build ... --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
   bazel test --verbose_failures --test_output=errors ...
 
