@@ -26,8 +26,8 @@ pybind_extension(
 py_test(
     name = "array_record_module_test",
     srcs = ["array_record_module_test.py"],
-    data = [":array_record_module.so"],
     deps = [
+        ":array_record_module",
         "@abseil-py//absl/testing:absltest",
     ],
 )
@@ -35,9 +35,10 @@ py_test(
 py_library(
     name = "array_record_data_source",
     srcs = ["array_record_data_source.py"],
-    data = [":array_record_module.so"],
+    #data = [":array_record_module.so"],
     deps = [
         requirement("etils"),
+        ":array_record_module",
     ],
 )
 
@@ -46,7 +47,6 @@ py_test(
     srcs = ["array_record_data_source_test.py"],
     args = ["--test_srcdir=python/testdata"],
     data = [
-        ":array_record_module.so",
         "//python/testdata:digits.array_record-00000-of-00002",
         "//python/testdata:digits.array_record-00001-of-00002",
     ],
