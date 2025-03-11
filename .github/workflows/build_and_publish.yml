@@ -29,7 +29,7 @@ jobs:
           export PYTHON_VERSION=${{ matrix.python-version }}
           export PYTHON_MAJOR_VERSION=$(echo $PYTHON_VERSION | cut -d. -f1)
           export PYTHON_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d. -f2)
-          export BAZEL_VERSION="7.1.1"
+          export BAZEL_VERSION="7.2.1"
           export OUTPUT_DIR="/tmp/array_record"
           export SOURCE_DIR="/tmp/array_record"
           . "${SOURCE_DIR}"'/oss/runner_common.sh'
