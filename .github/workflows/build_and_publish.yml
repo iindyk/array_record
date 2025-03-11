@@ -1,0 +1,41 @@
+name: Build & Publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: "Python ${{ matrix.python-version }} on ${{ matrix.os }}"
+    runs-on: "${{ matrix.os }}"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+        os: [ubuntu-20.04, ubuntu-22.04-arm, macos-14]
+
+    steps:
+      - uses: "actions/checkout@v3"
+      - name: Create directory
+        run: |
+          mkdir -p /tmp/array_record
+          cp -r . /tmp/array_record
+      - name: Build package
+        run: |
+          set -xe
+          export PYTHON_VERSION=${{ matrix.python-version }}
+          export PYTHON_MAJOR_VERSION=$(echo $PYTHON_VERSION | cut -d. -f1)
+          export PYTHON_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d. -f2)
+          export BAZEL_VERSION="7.1.1"
+          export OUTPUT_DIR="/tmp/array_record"
+          export SOURCE_DIR="/tmp/array_record"
+          . "${SOURCE_DIR}"'/array_record/oss/runner_common.sh'
+          build_and_test_array_record
+      - name: Upload ArrayRecord artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-array-record-wheels-${{ matrix.os }}-${{ matrix.python-version }}
+          path: /tmp/array_record/all_dist/**/*.whl
