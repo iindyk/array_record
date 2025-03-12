@@ -87,9 +87,9 @@ protobuf_deps()
 # Riegeli does not cut releases, so we reference the head
 http_archive(
     name = "com_google_riegeli",
-    strip_prefix = "riegeli-master",
+    strip_prefix = "riegeli-904c0c263b8632265103f0066c168a92c7713b07",
     urls = [
-        "https://github.com/google/riegeli/archive/master.zip",
+        "https://github.com/google/riegeli/archive/904c0c263b8632265103f0066c168a92c7713b07.zip",
     ],
 )
 # Riegeli's dependencies
@@ -131,9 +131,8 @@ http_archive(
 http_archive(
     name = "highwayhash",
     build_file = "@com_google_riegeli//third_party:highwayhash.BUILD",
-    sha256 = "5380cb7cf19e7c9591f31792b7794d48084f6a3ab7c03d637cd6a32cf2ee8686",
-    strip_prefix = "highwayhash-a7f68e2f95fac08b24327d74747521cf634d5aff",
-    urls = ["https://github.com/google/highwayhash/archive/a7f68e2f95fac08b24327d74747521cf634d5aff.zip"],  # 2023-08-09
+    strip_prefix = "highwayhash-3d6a8d35a6bc823b9dbe08804fc2a2d08d373cd7",
+    urls = ["https://github.com/google/highwayhash/archive/3d6a8d35a6bc823b9dbe08804fc2a2d08d373cd7.zip"],  # 2023-08-09
 )
 
 # Tensorflow, 20230705
