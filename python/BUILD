@@ -1,7 +1,6 @@
 # Python binding for ArrayRecord
 
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
-load("@pypi//:requirements.bzl", "requirement")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -11,15 +10,15 @@ pybind_extension(
     name = "array_record_module",
     srcs = ["array_record_module.cc"],
     deps = [
-        "@abseil-cpp//absl/status",
-        "@abseil-cpp//absl/strings",
-        "@abseil-cpp//absl/strings:str_format",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/strings:str_format",
         "//cpp:array_record_reader",
         "//cpp:array_record_writer",
         "//cpp:thread_pool",
-        "@riegeli//riegeli/base:initializer",
-        "@riegeli//riegeli/bytes:fd_reader",
-        "@riegeli//riegeli/bytes:fd_writer",
+        "@com_google_riegeli//riegeli/base:initializer",
+        "@com_google_riegeli//riegeli/bytes:fd_reader",
+        "@com_google_riegeli//riegeli/bytes:fd_writer",
     ],
 )
 
@@ -37,7 +36,6 @@ py_library(
     srcs = ["array_record_data_source.py"],
     data = [":array_record_module.so"],
     deps = [
-        requirement("etils"),
     ],
 )
 
