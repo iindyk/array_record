@@ -25,14 +25,14 @@ class BinaryDistribution(Distribution):
 
 setup(
     name='array_record',
-    version='0.5.1',
+    version='0.7.1',
     description='A file format that achieves a new frontier of IO efficiency',
     author='ArrayRecord team',
     author_email='no-reply@google.com',
     packages=find_packages(),
     include_package_data=True,
     package_data={'': ['*.so']},
-    python_requires='>=3.9',
+    python_requires='>=3.10',
     install_requires=REQUIRED_PACKAGES,
     extras_require={
         'beam': BEAM_EXTRAS
@@ -40,9 +40,9 @@ setup(
     url='https://github.com/google/array_record',
     license='Apache-2.0',
     classifiers=[
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
     zip_safe=False,
     distclass=BinaryDistribution,
