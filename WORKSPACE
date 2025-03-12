@@ -12,6 +12,12 @@ http_archive(
         ],
     )
 
+git_repository(
+    name = "rules_python",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+    tag = "0.5.0",
+)
+
 http_archive(
         name = "rules_license",
         urls = [
