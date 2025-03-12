@@ -27,7 +27,7 @@ py_test(
     srcs = ["array_record_module_test.py"],
     data = [":array_record_module.so"],
     deps = [
-        "@abseil-py//absl/testing:absltest",
+        "@com_google_absl//absl/testing:absltest",
     ],
 )
 
@@ -50,8 +50,8 @@ py_test(
     ],
     deps = [
         ":array_record_data_source",
-        "@abseil-py//absl/testing:absltest",
-        "@abseil-py//absl/testing:flagsaver",
-        "@abseil-py//absl/testing:parameterized",
+        "@com_google_absl//absl/testing:absltest",
+        "@com_google_absl//absl/testing:flagsaver",
+        "@com_google_absl//absl/testing:parameterized",
     ],
 )
