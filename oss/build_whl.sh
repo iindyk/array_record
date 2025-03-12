@@ -20,9 +20,12 @@ function main() {
   write_to_bazelrc "build --cxxopt=-std=c++17"
   write_to_bazelrc "build --host_cxxopt=-std=c++17"
   write_to_bazelrc "build --experimental_repo_remote_exec"
-  write_to_bazelrc "build --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
-  write_to_bazelrc "test --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
-  write_to_bazelrc "test --action_env PYTHON_VERSION=${PYTHON_VERSION}"
+  #write_to_bazelrc "build --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
+  #write_to_bazelrc "test --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
+  #write_to_bazelrc "build --action_env PYTHON_VERSION=${PYTHON_VERSION}"
+  #write_to_bazelrc "test --action_env PYTHON_VERSION=${PYTHON_VERSION}"
+  write_to_bazelrc "build --python_path=\"${PYTHON_BIN}\""
+  write_to_bazelrc "test --python_path=\"${PYTHON_BIN}\""
 
   # Enable host OS specific configs. For instance, "build:linux" will be used
   # automatically when building on Linux.
