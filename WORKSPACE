@@ -83,7 +83,6 @@ python_configure(name = "local_config_python")
 # This statement defines the @com_google_protobuf repo.
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "dc167b7d23ec0d6e4a3d4eae1798de6c8d162e69fa136d39753aaeb7a6e1289d",
     strip_prefix = "protobuf-3.21.9",
     urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"],
 )
