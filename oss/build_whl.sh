@@ -20,22 +20,12 @@ function main() {
   write_to_bazelrc "build --cxxopt=-std=c++17"
   write_to_bazelrc "build --host_cxxopt=-std=c++17"
   write_to_bazelrc "build --experimental_repo_remote_exec"
-  #write_to_bazelrc "build --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
-  #write_to_bazelrc "test --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
-  #write_to_bazelrc "build --action_env PYTHON_VERSION=${PYTHON_VERSION}"
-  #write_to_bazelrc "test --action_env PYTHON_VERSION=${PYTHON_VERSION}"
   write_to_bazelrc "build --python_path=\"${PYTHON_BIN}\""
   write_to_bazelrc "test --python_path=\"${PYTHON_BIN}\""
-
-  # Enable host OS specific configs. For instance, "build:linux" will be used
-  # automatically when building on Linux.
-  # write_to_bazelrc "build --enable_platform_specific_config"
-  # Bazel 7.0.0 no longer supports dynamic symbol lookup on macOS. To resolve
-  # undefined symbol errors in macOS arm64 builds, explicitly add the necessary
-  # linker flags until dependencies are well defined. See
-  # https://github.com/bazelbuild/bazel/issues/19730.
-  write_to_bazelrc "build --linkopt=-Wl,-undefined,dynamic_lookup"
-  write_to_bazelrc "build --host_linkopt=-Wl,-undefined,dynamic_lookup"
+  PLATFORM="$(uname)"
+  if [[ "$PLATFORM" != "Darwin" ]]; then
+    write_to_bazelrc "build --linkopt=\"-lrt -lm\""
+  fi
 
   if [ -n "${CROSSTOOL_TOP}" ]; then
     write_to_bazelrc "build --crosstool_top=${CROSSTOOL_TOP}"
@@ -45,8 +35,8 @@ function main() {
   export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
   #bazel run //:requirements.update
-  bazel build ... --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
-  bazel test --verbose_failures --test_output=errors ...
+  bazel build ... --action_env MACOSX_DEPLOYMENT_TARGET='11.0' --action_env PYTHON_BIN_PATH="${PYTHON_BIN}"
+  bazel test --verbose_failures --test_output=errors ... --action_env PYTHON_BIN_PATH="${PYTHON_BIN}"
 
   DEST="/tmp/array_record/all_dist"
   # Create the directory, then do dirname on a non-existent file inside it to
