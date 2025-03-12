@@ -127,6 +127,7 @@ http_archive(
 http_archive(
     name = "net_zstd",
     build_file = "@com_google_riegeli//third_party:net_zstd.BUILD",
+    sha256 = "b6c537b53356a3af3ca3e621457751fa9a6ba96daf3aebb3526ae0f610863532",
     strip_prefix = "zstd-1.4.5/lib",
     urls = ["https://github.com/facebook/zstd/archive/v1.4.5.zip"],  # 2020-05-22
 )
@@ -134,6 +135,7 @@ http_archive(
 http_archive(
     name = "lz4",
     build_file = "@com_google_riegeli//third_party:lz4.BUILD",
+    sha256 = "4ec935d99aa4950eadfefbd49c9fad863185ac24c32001162c44a683ef61b580",
     strip_prefix = "lz4-1.9.3/lib",
     urls = ["https://github.com/lz4/lz4/archive/refs/tags/v1.9.3.zip"],  # 2020-11-16
 )
@@ -141,6 +143,7 @@ http_archive(
 http_archive(
     name = "snappy",
     build_file = "@com_google_riegeli//third_party:snappy.BUILD",
+    sha256 = "7ee7540b23ae04df961af24309a55484e7016106e979f83323536a1322cedf1b",
     strip_prefix = "snappy-1.2.0",
     urls = ["https://github.com/google/snappy/archive/1.2.0.zip"],  # 2024-04-04
 )
@@ -148,6 +151,7 @@ http_archive(
 http_archive(
     name = "crc32c",
     build_file = "@com_google_riegeli//third_party:crc32.BUILD",
+    sha256 = "338f1d9d95753dc3cdd882dfb6e176bbb4b18353c29c411ebcb7b890f361722e",
     strip_prefix = "crc32c-1.1.0",
     urls = ["https://github.com/google/crc32c/archive/1.1.0.zip"],  # 2019-05-24
 )
@@ -155,6 +159,7 @@ http_archive(
 http_archive(
     name = "zlib",
     build_file = "@com_google_riegeli//third_party:zlib.BUILD",
+    sha256 = "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
     strip_prefix = "zlib-1.2.11",
     urls = ["http://zlib.net/fossils/zlib-1.2.11.tar.gz"],  # 2017-01-15
 )
@@ -162,6 +167,7 @@ http_archive(
 http_archive(
     name = "highwayhash",
     build_file = "@com_google_riegeli//third_party:highwayhash.BUILD",
+    sha256 = "5380cb7cf19e7c9591f31792b7794d48084f6a3ab7c03d637cd6a32cf2ee8686",
     strip_prefix = "highwayhash-a7f68e2f95fac08b24327d74747521cf634d5aff",
     urls = ["https://github.com/google/highwayhash/archive/a7f68e2f95fac08b24327d74747521cf634d5aff.zip"],  # 2023-08-09
 )
@@ -169,6 +175,7 @@ http_archive(
 # Tensorflow, 20230705
 http_archive(
     name = "org_tensorflow",
+    sha256 = "63025cb60d00d9aa7a88807651305a38abb9bb144464e2419c03f13a089d19a6",
     strip_prefix = "tensorflow-2.12.1",
     urls = ["https://github.com/tensorflow/tensorflow/archive/v2.12.1.zip"],
 )
