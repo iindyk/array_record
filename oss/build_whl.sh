@@ -5,18 +5,8 @@
 
 set -e -x
 
-if [ -z ${PYTHON_BIN} ]; then
-  if [ -z ${PYTHON_VERSION} ]; then
-    PYTHON_BIN=$(which python3)
-  else
-    PYTHON_BIN=$(which python${PYTHON_VERSION})
-  fi
-fi
+OUTPUT_DIR="${OUTPUT_DIR:-/tmp/array_record}"
 
-PYTHON_MAJOR_VERSION=$(${PYTHON_BIN} -c 'import sys; print(sys.version_info.major)')
-PYTHON_MINOR_VERSION=$(${PYTHON_BIN} -c 'import sys; print(sys.version_info.minor)')
-PYTHON_VERSION="${PYTHON_MAJOR_VERSION}.${PYTHON_MINOR_VERSION}"
-export PYTHON_VERSION="${PYTHON_VERSION}"
 
 function write_to_bazelrc() {
   echo "$1" >> .bazelrc
@@ -29,20 +19,33 @@ function main() {
   write_to_bazelrc "build -c opt"
   write_to_bazelrc "build --cxxopt=-std=c++17"
   write_to_bazelrc "build --host_cxxopt=-std=c++17"
-  write_to_bazelrc "build --linkopt=\"-lrt -lm\""
   write_to_bazelrc "build --experimental_repo_remote_exec"
+  #write_to_bazelrc "build --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
+  #write_to_bazelrc "test --@rules_python//python/config_settings:python_version=${PYTHON_VERSION}"
+  #write_to_bazelrc "build --action_env PYTHON_VERSION=${PYTHON_VERSION}"
+  #write_to_bazelrc "test --action_env PYTHON_VERSION=${PYTHON_VERSION}"
   write_to_bazelrc "build --python_path=\"${PYTHON_BIN}\""
+  write_to_bazelrc "test --python_path=\"${PYTHON_BIN}\""
+
+  # Enable host OS specific configs. For instance, "build:linux" will be used
+  # automatically when building on Linux.
+  # write_to_bazelrc "build --enable_platform_specific_config"
+  # Bazel 7.0.0 no longer supports dynamic symbol lookup on macOS. To resolve
+  # undefined symbol errors in macOS arm64 builds, explicitly add the necessary
+  # linker flags until dependencies are well defined. See
+  # https://github.com/bazelbuild/bazel/issues/19730.
+  write_to_bazelrc "build --linkopt=-Wl,-undefined,dynamic_lookup"
+  write_to_bazelrc "build --host_linkopt=-Wl,-undefined,dynamic_lookup"
 
   if [ -n "${CROSSTOOL_TOP}" ]; then
     write_to_bazelrc "build --crosstool_top=${CROSSTOOL_TOP}"
     write_to_bazelrc "test --crosstool_top=${CROSSTOOL_TOP}"
   fi
 
-  # Using a previous version of Blaze to avoid:
-  # https://github.com/bazelbuild/bazel/issues/8622
-  export USE_BAZEL_VERSION=5.4.0
+  export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
-  bazel build ...
+  #bazel run //:requirements.update
+  bazel build ... --action_env MACOSX_DEPLOYMENT_TARGET='11.0'
   bazel test --verbose_failures --test_output=errors ...
 
   DEST="/tmp/array_record/all_dist"
@@ -71,7 +74,11 @@ function main() {
 
   pushd ${TMPDIR}
   echo $(date) : "=== Building wheel"
-  ${PYTHON_BIN} setup.py bdist_wheel --python-tag py3${PYTHON_MINOR_VERSION}
+  if [ "$(uname)" = "Darwin" ]; then
+    "$PYTHON_BIN" setup.py bdist_wheel --python-tag py3"${PYTHON_MINOR_VERSION}" --plat-name macosx_11_0_"$(uname -m)"
+  else
+    "$PYTHON_BIN" setup.py bdist_wheel --python-tag py3"${PYTHON_MINOR_VERSION}"
+  fi
 
   if [ -n "${AUDITWHEEL_PLATFORM}" ]; then
     echo $(date) : "=== Auditing wheel"
