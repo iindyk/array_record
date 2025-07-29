@@ -44,6 +44,8 @@ namespace {
 
 enum class CompressionType { kUncompressed, kBrotli, kZstd, kSnappy };
 
+using IndexStorageOption = ArrayRecordReaderBase::Options::IndexStorageOption;
+
 // Tuple params
 //   CompressionType
 //   transpose
@@ -51,7 +53,7 @@ enum class CompressionType { kUncompressed, kBrotli, kZstd, kSnappy };
 //   optimize_for_random_access
 class ArrayRecordReaderTest
     : public testing::TestWithParam<
-          std::tuple<CompressionType, bool, bool, bool>> {
+          std::tuple<CompressionType, bool, bool, bool, IndexStorageOption>> {
  public:
   ARThreadPool* get_pool() { return ArrayRecordGlobalPool(); }
   ArrayRecordWriterBase::Options GetWriterOptions() {
@@ -77,6 +79,7 @@ class ArrayRecordReaderTest
   bool transpose() { return std::get<1>(GetParam()); }
   bool use_thread_pool() { return std::get<2>(GetParam()); }
   bool optimize_for_random_access() { return std::get<3>(GetParam()); }
+  IndexStorageOption index_storage_option() { return std::get<4>(GetParam()); }
 };
 
 TEST_P(ArrayRecordReaderTest, MoveTest) {
@@ -93,6 +96,7 @@ TEST_P(ArrayRecordReaderTest, MoveTest) {
   ASSERT_TRUE(writer.Close());
 
   auto reader_opt = ArrayRecordReaderBase::Options();
+  reader_opt.set_index_storage_option(index_storage_option());
   if (optimize_for_random_access()) {
     reader_opt.set_max_parallelism(0);
     reader_opt.set_readahead_buffer_size(0);
@@ -182,6 +186,7 @@ TEST_P(ArrayRecordReaderTest, RandomDatasetTest) {
   ASSERT_TRUE(writer.Close());
 
   auto reader_opt = ArrayRecordReaderBase::Options();
+  reader_opt.set_index_storage_option(index_storage_option());
   if (optimize_for_random_access()) {
     reader_opt.set_max_parallelism(0);
     reader_opt.set_readahead_buffer_size(0);
@@ -268,7 +273,9 @@ INSTANTIATE_TEST_SUITE_P(
                                      CompressionType::kBrotli,
                                      CompressionType::kZstd,
                                      CompressionType::kSnappy),
-                     testing::Bool(), testing::Bool(), testing::Bool()));
+                     testing::Bool(), testing::Bool(), testing::Bool(),
+                     testing::Values(IndexStorageOption::kInMemory,
+                                     IndexStorageOption::kOffloaded)));
 
 TEST(ArrayRecordReaderOptionTest, ParserTest) {
   {
