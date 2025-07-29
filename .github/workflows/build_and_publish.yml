@@ -43,3 +43,25 @@ jobs:
         with:
           name: built-array-record-wheels-${{ matrix.os }}-${{ matrix.python-version }}
           path: /tmp/array_record/all_dist/**/*.whl
+
+  publish-wheel:
+    if: ${{ inputs.upload_wheels }}
+    runs-on: ubuntu-22.04
+    needs: build-and-test
+    permissions:
+      id-token: write
+    environment:
+      name: pypi
+      url: ${{ inputs.pypi_project_url }}
+    steps:
+      - name: Download ArrayRecord artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: built-array-record-wheels-*
+          path: dist/
+          merge-multiple: true
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          attestations: false
+          verbose: true
