@@ -59,6 +59,14 @@ class ArrayRecordReaderBase : public riegeli::Object {
   class Options {
    public:
     Options() {}
+    enum class IndexStorageOption {
+      // Keeps all the record/chunk index in memory. Trade-off memory usage for
+      // speed.
+      kInMemory = 0,
+      // Does not keep the index in memory and reads the index from disk for
+      // every access. Uses much smaller memory footprint.
+      kOffloaded = 1,
+    };
 
     // Parses options from text:
     // ```
@@ -95,9 +103,19 @@ class ArrayRecordReaderBase : public riegeli::Object {
     }
     std::optional<uint32_t> max_parallelism() const { return max_parallelism_; }
 
+    // Specifies the index storage option.
+    Options& set_index_storage_option(IndexStorageOption storage_option) {
+      index_storage_option_ = storage_option;
+      return *this;
+    }
+    IndexStorageOption index_storage_option() const {
+      return index_storage_option_;
+    }
+
    private:
     std::optional<uint32_t> max_parallelism_ = std::nullopt;
     uint64_t readahead_buffer_size_ = kDefaultReadaheadBufferSize;
+    IndexStorageOption index_storage_option_ = IndexStorageOption::kInMemory;
   };
 
   // Reads the entire file in parallel and invokes the callback function of
@@ -300,7 +318,7 @@ class ArrayRecordReaderBase : public riegeli::Object {
   // Holds all the internal state in a variable to simplify the implementation
   // of the "Close after Move" semantic.
   struct ArrayRecordReaderState;
-  friend class ChunkDispatcher;
+  friend class OffloadedChunkOffset;
   std::unique_ptr<ArrayRecordReaderState> state_;
 };
 
